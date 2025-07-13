@@ -1,0 +1,133 @@
+.background {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  
+}
+
+/* Background image */
+.background img:last-child {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.8); 
+}
+
+/* Logo image on top-right */
+.background img:first-child {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  width: 140px; /* Adjust as needed */
+  z-index: 1;
+}
+
+.form{
+    position:absolute;
+    display:flex;
+    justify-content: center;
+
+    top:10%;
+    left:35%;
+    width:30%;
+    height:40%;
+    border-radius: 5%;
+     background-color: rgba(0, 0, 0, 0.8);
+}
+.login-form {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 40px;
+  border-radius: 5px;
+  width: 320px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form h1 {
+  margin: 0 0 20px 0;
+}
+
+/* Inputs */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  background-color: #333;
+  border: none;
+  padding: 12px;
+  color: white;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.btn-signin {
+  background-color: #e50914;
+  border: none;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-signin-code {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* OR text */
+.or-divider {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+/* Bottom Links */
+.bottom-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.forgot-password {
+  color: #b3b3b3;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #b3b3b3;
+}
+
+.signup-link {
+  font-size: 13px;
+  color: #b3b3b3;
+}
+
+.signup-link a {
+  color: white;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+
+body{
+    overflow: hidden;
+}
