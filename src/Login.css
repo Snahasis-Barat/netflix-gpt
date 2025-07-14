@@ -105,13 +105,7 @@
   text-decoration: underline;
 }
 
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #b3b3b3;
-}
+
 
 .signup-link {
   font-size: 13px;

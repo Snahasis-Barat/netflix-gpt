@@ -1,9 +1,31 @@
 import React from "react";
 import "../Login.css";
-import { FormControl, InputLabel, Input, FormHelperText } from "@mui/material"; // Importing Material-UI components
-import { useState } from "react";
+import { Alert } from "@mui/material"; // Importing Material-UI components
+import { useState, useRef } from "react";
 const Login = () => {
   const [userPage, setUserPage] = useState("Sign In");
+  const [emailValid, setEmailValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(email.current.value, password.current.value);
+    const validateEmailRegex = /^\S+@\S+\.\S+$/;
+    const validatepasswordRegex =
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    console.log(validateEmailRegex.test(email.current.value));
+    if (!validateEmailRegex.test(email.current.value)) {
+      setEmailValid(false);
+    } else if (validateEmailRegex.test(email.current.value)) {
+      setEmailValid(true);
+    }
+
+    if (!validatepasswordRegex.test(password.current.value)) {
+      setPasswordValid(false);
+    }
+  };
 
   return (
     <div>
@@ -13,16 +35,20 @@ const Login = () => {
         </div>
         <img src="https://assets.nflxext.com/ffe/siteui/vlv3/7d2359a4-434f-4efa-9ff3-e9d38a8bde7f/web/IN-en-20250707-TRIFECTA-perspective_4faa9280-a2c5-4e07-aafc-a45ce43fea09_small.jpg" />
         <div className="form">
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <h1>{userPage == "Sign Up" ? "Sign Up" : "Sign In"}</h1>
             {userPage == "Sign Up" ? (
               <input type="text" placeholder="Enter username" />
             ) : (
               ""
             )}
-            <input type="text" placeholder="Email or mobile number" />
+            <input
+              ref={email}
+              type="text"
+              placeholder="Email or mobile number"
+            />
 
-            <input type="password" placeholder="Password" />
+            <input ref={password} type="password" placeholder="Password" />
 
             <button className="btn-signin">{userPage}</button>
 
@@ -48,8 +74,29 @@ const Login = () => {
                 </div>
               )}
             </div>
-          </form>
-        </div>
+             </form>
+             </div>
+            {!emailValid ? (
+              <Alert severity="error">Enter valid email</Alert>
+            ) : (
+              ""
+            )}
+            {!passwordValid ? (
+              <Alert severity="error">
+                <p>Enter valid password</p>
+                <li>
+                <ul> Has minimum 8 characters in length. </ul>
+                  <ul> At least one uppercase English letter. </ul>
+                  <ul>At least one lowercase English letter. </ul>
+                  <ul>At least one digit. </ul>
+                  <ul> At least one special character</ul>
+                </li>
+              </Alert>
+            ) : (
+              ""
+            )}
+          
+        
       </div>
     </div>
   );
