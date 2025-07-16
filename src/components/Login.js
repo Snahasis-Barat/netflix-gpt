@@ -2,16 +2,21 @@ import React from "react";
 import "../Login.css";
 import { Alert } from "@mui/material"; // Importing Material-UI components
 import { useState, useRef } from "react";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword} from "firebase/auth";
+
+
 const Login = () => {
   const [userPage, setUserPage] = useState("Sign In");
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const email = useRef(null);
   const password = useRef(null);
+  const username = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email.current.value, password.current.value);
+    
     const validateEmailRegex = /^\S+@\S+\.\S+$/;
     const validatepasswordRegex =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -25,6 +30,29 @@ const Login = () => {
     if (!validatepasswordRegex.test(password.current.value)) {
       setPasswordValid(false);
     }
+
+    else if (validatepasswordRegex.test(password.current.value)) {
+      setPasswordValid(true);
+    }
+
+    if(emailValid && passwordValid)
+    {
+      console.log(true)
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage)
+    // ..
+  });
+    }
+
   };
 
   return (
@@ -38,7 +66,7 @@ const Login = () => {
           <form className="login-form" onSubmit={handleSubmit}>
             <h1>{userPage == "Sign Up" ? "Sign Up" : "Sign In"}</h1>
             {userPage == "Sign Up" ? (
-              <input type="text" placeholder="Enter username" />
+              <input ref={username} type="text" placeholder="Enter username" />
             ) : (
               ""
             )}
