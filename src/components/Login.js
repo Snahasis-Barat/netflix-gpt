@@ -2,25 +2,31 @@ import React from "react";
 import "../Login.css";
 import { Alert } from "@mui/material"; // Importing Material-UI components
 import { useState, useRef } from "react";
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword} from "firebase/auth";
 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  createCustomToken,
+} from "firebase/auth";
+import { auth } from "../firebase"; // Importing the auth instance from firebase.js
 
 const Login = () => {
   const [userPage, setUserPage] = useState("Sign In");
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
+  const [userStatus,setUserStatus]=useState("")
+
   const email = useRef(null);
   const password = useRef(null);
   const username = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const validateEmailRegex = /^\S+@\S+\.\S+$/;
     const validatepasswordRegex =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    console.log(validateEmailRegex.test(email.current.value));
+ 
     if (!validateEmailRegex.test(email.current.value)) {
       setEmailValid(false);
     } else if (validateEmailRegex.test(email.current.value)) {
@@ -29,30 +35,48 @@ const Login = () => {
 
     if (!validatepasswordRegex.test(password.current.value)) {
       setPasswordValid(false);
-    }
-
-    else if (validatepasswordRegex.test(password.current.value)) {
+    } else if (validatepasswordRegex.test(password.current.value)) {
       setPasswordValid(true);
     }
 
-    if(emailValid && passwordValid)
-    {
-      console.log(true)
-      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    console.log(user)
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage)
-    // ..
-  });
-    }
+    if (emailValid && passwordValid) {
+      if (userPage == "Sign Up") {
+        createUserWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            // Signed up
+            const user = userCredential.user;
+            console.log(user);
+            setUserStatus("User created successfully");
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            // ..
+          });
+      } else if (userPage == "Sign In") {
+        const uid = localStorage.getItem(email.current.value);
 
+        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user);
+            setUserStatus("User signed in successfully");
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+          });
+      }
+    }
   };
 
   return (
@@ -102,29 +126,20 @@ const Login = () => {
                 </div>
               )}
             </div>
-             </form>
-             </div>
-            {!emailValid ? (
-              <Alert severity="error">Enter valid email</Alert>
-            ) : (
-              ""
-            )}
-            {!passwordValid ? (
-              <Alert severity="error">
-                <p>Enter valid password</p>
-                <li>
-                <ul> Has minimum 8 characters in length. </ul>
-                  <ul> At least one uppercase English letter. </ul>
-                  <ul>At least one lowercase English letter. </ul>
-                  <ul>At least one digit. </ul>
-                  <ul> At least one special character</ul>
-                </li>
-              </Alert>
-            ) : (
-              ""
-            )}
-          
-        
+          </form>
+           </div>
+          <div className="user-status">
+          {!emailValid ? <Alert severity="error">Enter valid email</Alert> : ""}<br/>
+          {!passwordValid ? (
+            <Alert severity="error">
+              <p>Enter valid password</p>
+            </Alert>
+          ) : (
+            ""
+          )}
+          {userStatus && emailValid && passwordValid && <Alert severity="success">{userStatus}</Alert>}
+          </div>
+       
       </div>
     </div>
   );

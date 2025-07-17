@@ -45,6 +45,15 @@
   gap: 15px;
 }
 
+.user-status {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+   top:55%;
+    left:40%;
+}
+
 .login-form h1 {
   margin: 0 0 20px 0;
 }
