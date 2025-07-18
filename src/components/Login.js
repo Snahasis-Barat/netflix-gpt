@@ -3,80 +3,18 @@ import "../Login.css";
 import { Alert } from "@mui/material"; // Importing Material-UI components
 import { useState, useRef } from "react";
 
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  createCustomToken,
-} from "firebase/auth";
-import { auth } from "../firebase"; // Importing the auth instance from firebase.js
+import UserValidate from "./UserValidate";
 
 const Login = () => {
   const [userPage, setUserPage] = useState("Sign In");
-  const [emailValid, setEmailValid] = useState(true);
-  const [passwordValid, setPasswordValid] = useState(true);
-  const [userStatus,setUserStatus]=useState("")
 
   const email = useRef(null);
   const password = useRef(null);
   const username = useRef(null);
-
+  const { emailValid, passwordValid, userStatus, validate } = UserValidate();
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const validateEmailRegex = /^\S+@\S+\.\S+$/;
-    const validatepasswordRegex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
- 
-    if (!validateEmailRegex.test(email.current.value)) {
-      setEmailValid(false);
-    } else if (validateEmailRegex.test(email.current.value)) {
-      setEmailValid(true);
-    }
-
-    if (!validatepasswordRegex.test(password.current.value)) {
-      setPasswordValid(false);
-    } else if (validatepasswordRegex.test(password.current.value)) {
-      setPasswordValid(true);
-    }
-
-    if (emailValid && passwordValid) {
-      if (userPage == "Sign Up") {
-        createUserWithEmailAndPassword(
-          auth,
-          email.current.value,
-          password.current.value
-        )
-          .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
-            console.log(user);
-            setUserStatus("User created successfully");
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorMessage);
-            // ..
-          });
-      } else if (userPage == "Sign In") {
-        const uid = localStorage.getItem(email.current.value);
-
-        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log(user);
-            setUserStatus("User signed in successfully");
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorMessage);
-          });
-      }
-    }
+    validate(email.current.value, password.current.value, userPage);
   };
 
   return (
@@ -127,9 +65,9 @@ const Login = () => {
               )}
             </div>
           </form>
-           </div>
-          <div className="user-status">
-          {!emailValid ? <Alert severity="error">Enter valid email</Alert> : ""}<br/>
+        </div>
+        <div className="user-status">
+          {!emailValid ? <Alert severity="error">Enter valid email</Alert> : ""}
           {!passwordValid ? (
             <Alert severity="error">
               <p>Enter valid password</p>
@@ -137,9 +75,10 @@ const Login = () => {
           ) : (
             ""
           )}
-          {userStatus && emailValid && passwordValid && <Alert severity="success">{userStatus}</Alert>}
-          </div>
-       
+          {userStatus && emailValid && passwordValid && (
+            <Alert severity="success">{userStatus}</Alert>
+          )}
+        </div>
       </div>
     </div>
   );

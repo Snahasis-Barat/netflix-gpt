@@ -2,7 +2,6 @@
   position: relative;
   display: inline-block;
   width: 100%;
-  
 }
 
 /* Background image */
@@ -10,7 +9,7 @@
   display: block;
   width: 100%;
   height: auto;
-  background-color: rgba(0, 0, 0, 0.8); 
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Logo image on top-right */
@@ -22,17 +21,17 @@
   z-index: 1;
 }
 
-.form{
-    position:absolute;
-    display:flex;
-    justify-content: center;
+.form {
+  position: absolute;
+  display: flex;
+  justify-content: center;
 
-    top:10%;
-    left:35%;
-    width:30%;
-    height:40%;
-    border-radius: 5%;
-     background-color: rgba(0, 0, 0, 0.8);
+  top: 10%;
+  left: 35%;
+  width: 30%;
+  height: 40%;
+  border-radius: 5%;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .login-form {
   background-color: rgba(0, 0, 0, 0.75);
@@ -49,9 +48,11 @@
   position: absolute;
   display: flex;
   justify-content: center;
-  padding: 5%;
-   top:55%;
-    left:40%;
+  display: flex; /* or grid */
+  flex-direction: column; /* for vertical spacing */
+  gap: 10px;
+  top: 52%;
+  left: 42%;
 }
 
 .login-form h1 {
@@ -114,8 +115,6 @@
   text-decoration: underline;
 }
 
-
-
 .signup-link {
   font-size: 13px;
   color: #b3b3b3;
@@ -130,7 +129,6 @@
   text-decoration: underline;
 }
 
-
-body{
-    overflow: hidden;
+body {
+  overflow: hidden;
 }
