@@ -3,14 +3,18 @@ import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  createCustomToken,
 } from "firebase/auth";
 import { auth } from "../firebase"; // Importing the auth instance from firebase.js
+import { useDispatch, useSelector } from "react-redux";
+import { signIn, signOut } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const UserValidate = () => {
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [userStatus, setUserStatus] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const validate = (email, password, userPage) => {
     const validateEmailRegex = /^\S+@\S+\.\S+$/;
@@ -52,6 +56,9 @@ const UserValidate = () => {
             const user = userCredential.user;
             console.log(user);
             setUserStatus("User signed in successfully");
+            dispatch(signIn());
+
+            navigate("/browse");
             // ...
           })
           .catch((error) => {
@@ -62,7 +69,6 @@ const UserValidate = () => {
       }
     }
   };
-
   return { emailValid, passwordValid, userStatus, validate };
 };
 

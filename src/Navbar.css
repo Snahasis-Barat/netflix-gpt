@@ -1,0 +1,23 @@
+.navbar {
+  position: fixed;
+  display: flex;
+  top: 0px;
+ justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+    background-color: rgba(42, 40, 40, 0.75);
+}
+
+.logo {
+   display: flex;
+  height: 60px;
+  width: auto;
+}
+
+
+
+.button{
+  display: flex;
+
+}

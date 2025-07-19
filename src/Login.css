@@ -2,6 +2,7 @@
   position: relative;
   display: inline-block;
   width: 100%;
+  
 }
 
 /* Background image */
@@ -13,20 +14,20 @@
 }
 
 /* Logo image on top-right */
-.background img:first-child {
+/* .background img:first-child {
   position: absolute;
   top: 10px;
   left: 5px;
-  width: 140px; /* Adjust as needed */
+  width: 140px; 
   z-index: 1;
-}
+} */
 
 .form {
   position: absolute;
   display: flex;
   justify-content: center;
 
-  top: 10%;
+  top: 15%;
   left: 35%;
   width: 30%;
   height: 40%;
