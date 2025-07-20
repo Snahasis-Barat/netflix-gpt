@@ -1,18 +1,20 @@
 .navbar {
-  position: fixed;
-  display: flex;
+  position: fixed; /* or 'relative' if you want it to scroll with page */
   top: 0px;
- justify-content: space-between;
-  align-items: center;
+  left: 0;
   width: 100%;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
     background-color: rgba(42, 40, 40, 0.75);
+    z-index: 1000;
 }
 
 .logo {
    display: flex;
   height: 60px;
   width: auto;
+  margin:auto;
 }
 
 

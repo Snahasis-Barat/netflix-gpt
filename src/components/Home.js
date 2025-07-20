@@ -1,18 +1,24 @@
 import React from "react";
 import "../Login.css";
 import { Alert } from "@mui/material"; // Importing Material-UI components
-import { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 
 import UserValidate from "./UserValidate";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const Home = () => {
   const [userPage, setUserPage] = useState("Sign In");
-
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const email = useRef(null);
   const password = useRef(null);
   const username = useRef(null);
   const { emailValid, passwordValid, userStatus, validate } = UserValidate();
+  const navigate = useNavigate();
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     validate(email.current.value, password.current.value, userPage);
@@ -21,7 +27,7 @@ const Home = () => {
   return (
     <div>
       <div className="background">
-        <Navbar/>
+       
         <img src="https://assets.nflxext.com/ffe/siteui/vlv3/7d2359a4-434f-4efa-9ff3-e9d38a8bde7f/web/IN-en-20250707-TRIFECTA-perspective_4faa9280-a2c5-4e07-aafc-a45ce43fea09_small.jpg" />
         <div className="form">
           <form className="login-form" onSubmit={handleSubmit}>

@@ -1,17 +1,25 @@
 import React, { useEffect } from "react";
 import "../Navbar.css";
-import { useSelector } from "react-redux";
+
 import Button from "@mui/material/Button";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import { useDispatch, useSelector } from "react-redux";
+import { signIn, signOut } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  useEffect(() => {
-    console.log("use effect called");
-  }, []);
+  
 
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const dispatch =useDispatch();
+  const navigate=useNavigate();
   console.log(isAuthenticated);
+
+  const handleSignOut=()=>{
+    dispatch(signOut());
+    navigate("/");
+  }
 
   return (
     <div>
@@ -34,20 +42,13 @@ const Navbar = () => {
             startIcon={
               <LogoutIcon
                 
-              />
+              />   
             }
+            onClick={handleSignOut}
           >
             Sign out
           </Button>
-         : <Button
-            variant="contained"
-            color="success" 
-            startIcon={
-              <LoginIcon
-                
-              />
-            }
-          >Sign In</Button>}
+         : ""}
        
       </div>
     </div>
