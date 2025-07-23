@@ -1,0 +1,47 @@
+.container {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    transform: translateY(-30%);
+     text-align: justify;
+    max-width: 20%;
+    font-family: Arial, sans-serif;
+}
+
+.container h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.container p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.6rem 1.5rem;
+    margin: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    
+}
+
+.play {
+    background-color: lightgray;
+    color: black;
+}
+
+.info {
+    background-color: lightgray;
+   
+}

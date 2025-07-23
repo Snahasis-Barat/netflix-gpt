@@ -1,10 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { addNowPlayingMovies } from "../utils/movieSlice";
+import MainContainer from "./MainContainer";
+
 const Browse = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const url =
     "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
@@ -18,12 +22,23 @@ const Browse = () => {
   };
 
   useEffect(() => {
-    fetch(url, options)
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((err) => console.error(err));
+    getNowPlayingMovies();
   }, []);
-  return <div>Browse</div>;
+
+  const getNowPlayingMovies = async () => {
+    const data = await fetch(url, options);
+
+    const json = await data.json();
+
+   
+    dispatch(addNowPlayingMovies(json.results));
+  };
+
+  return (
+    <div>
+      <MainContainer />
+    </div>
+  );
 };
 
 export default Browse;
