@@ -1,15 +1,14 @@
-import React from "react";
-import { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import "../VideoBackground.css";    
 const VideoBackground = ({ movieId }) => {
-console.log(movieId)
+  const [trailerKey, setTrailerKey] = useState("");
 
   useEffect(() => {
     getMovieTrailer();
   }, []);
 
   const getMovieTrailer = async () => {
-    const url = 'https://api.themoviedb.org/3/movie/1087192/videos';
+    const url = "https://api.themoviedb.org/3/movie/1087192/videos";
     const options = {
       method: "GET",
       headers: {
@@ -23,12 +22,25 @@ console.log(movieId)
 
     const json = await data.json();
 
-    console.log(json);
-
-   
+    const trailer = json.results.filter((movie) => movie.type === "Trailer")[2];
+    if (trailer) {
+      setTrailerKey(trailer.key);
+    }
+    console.log(trailer);
   };
 
-  return <div>VideoBackground</div>;
+  return (
+    <div>
+      <iframe
+        width="100%"
+        className="screen"
+        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1`}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      ></iframe>
+    </div>
+  );
 };
 
 export default VideoBackground;
