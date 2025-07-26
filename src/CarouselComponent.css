@@ -1,0 +1,12 @@
+
+.movie-title{
+
+   position: absolute;
+  top: 80%;
+  width:100%;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  
+}

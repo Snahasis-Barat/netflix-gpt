@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { addNowPlayingMovies } from "../utils/movieSlice";
 import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
+import "../Browse.css"; 
 
 const Browse = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const url =
     "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
   const options = {
@@ -22,6 +24,10 @@ const Browse = () => {
   };
 
   useEffect(() => {
+
+    if(!isAuthenticated) {
+    navigate("/");
+  }
     getNowPlayingMovies();
   }, []);
 
@@ -35,8 +41,9 @@ const Browse = () => {
   };
 
   return (
-    <div>
+    <div >
       <MainContainer />
+      <SecondaryContainer/>
     </div>
   );
 };
