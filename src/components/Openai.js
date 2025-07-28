@@ -1,31 +1,35 @@
-import React from 'react'
+import React from "react";
 
-import { openai_key } from '../utils/const';
-import OpenAI from 'openai';
-const Openai = () => {
+// import { openai_key } from '../utils/const';
+// import OpenAI from 'openai';
+import { cohere_api_key } from "../utils/const";
 
+const getResponse = async (query) => {
+  const response = await fetch("https://api.cohere.ai/v1/chat", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + cohere_api_key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "command-r",
+      message:
+        query +
+        " ,do not include any other information,only movie name without numbering and extra space",
+      max_tokens: 100,
+    }),
+  });
 
-const client = new OpenAI({
-  apiKey: openai_key, // This is the default and can be omitted
-});
+  const data = await response.json();
 
-async function getResponse() {
-const response = await client.responses.create({
-  model: 'gpt-3.5-turbo',
-  instructions: 'You are a coding assistant that talks like a pirate',
- messages: [
-   
-    { role: 'user', content: 'Are semicolons optional in JavaScript?' },
-  ],
-});
+  const filteredQuery = data.text
+    .split("\n") // split on newlines
+    .map((item) => item.trim()) // remove extra spaces
+    .filter(Boolean) // remove empty lines
+    .map((line) => line.replace(/^\d+\.\s*/, "")) // remove numbering like "1. "
+    .filter(Boolean); // in case some are still empty
 
-console.log(response.choices);
-}
+  return filteredQuery;
+};
 
-getResponse();
-  return (
-    <div>OpenAI</div>
-  )
-}
-
-export default Openai
+export default getResponse;

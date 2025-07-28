@@ -1,0 +1,10 @@
+.gpt-search-box{
+
+    position:absolute;
+    top:20%;
+    left:30%;
+    width:40%;
+   background-color:  white;
+    /* background-color: black; */
+}
+

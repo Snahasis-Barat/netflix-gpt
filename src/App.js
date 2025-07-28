@@ -6,6 +6,7 @@ import appStore from './utils/appStore';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 import Browse from './components/Browse';
 import Navbar from './components/Navbar';
+import GptSearch from './components/GptSearch';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
        
       <Route path="/" element={<Home />} />
       <Route path="/browse" element={<Browse />} />
+      <Route path="/gptsearch" element={<GptSearch/>} />
       
     </Routes>
     </BrowserRouter>

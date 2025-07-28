@@ -37,7 +37,7 @@ const Navbar = () => {
             variant="contained"
            
             
-            onClick={navigate("/gptsearch")}
+            onClick={()=>navigate("/gptsearch")}
             style={{ backgroundColor:"green",marginRight:"10px" }}
           >
             GPTSearch
