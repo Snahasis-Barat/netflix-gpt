@@ -44,7 +44,7 @@ const SecondaryContainer = () => {
   const popularMovies = useSelector((store) => store.movies?.popularMovies);
   const upcomingMovies = useSelector((store) => store.movies?.upcomingMovies);
 
- 
+ console.log(topRatedMovies)
 
   return (
     <div>

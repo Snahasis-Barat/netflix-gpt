@@ -52,7 +52,7 @@
   display: flex; /* or grid */
   flex-direction: column; /* for vertical spacing */
   gap: 10px;
-  top: 52%;
+  top: 65%;
   left: 42%;
 }
 

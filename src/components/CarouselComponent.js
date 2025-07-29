@@ -29,22 +29,26 @@ const CarouselComponent = ({ movies }) => {
 function SlideItem({ item }) {
   return (
     <div>
-      <img
-      className="carousel-image"
-        src={"https://image.tmdb.org/t/p/w500/" + item?.backdrop_path}
-        alt={item.name}
-        style={{ width: "100%", height: 300, objectFit: "cover" }}
-      />
-      
-       
-        <div class ="movie-title">
-            <h3>{item?.original_title}</h3>
-        </div>
-            
-       </div> 
-      
-    
+      {item?.backdrop_path ? (
+        <img
+          className="carousel-image"
+          src={"https://image.tmdb.org/t/p/w500/" + item?.backdrop_path}
+          alt={item.name}
+          style={{ width: "100%", height: 300, objectFit: "cover" }}
+        />
+      ) : (
+        <img
+          className="carousel-image"
+          src={"https://image.tmdb.org/t/p/w500/" + item?.poster_path}
+          alt={item.name}
+          style={{ width: "100%", height: 300, objectFit: "cover" }}
+        />
+      )}
 
+      <div class="movie-title">
+        <h3>{item?.original_title}</h3>
+      </div>
+    </div>
   );
 }
 
